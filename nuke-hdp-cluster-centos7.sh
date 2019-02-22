@@ -7,39 +7,20 @@
 
 #if you just want to reconfigure the cluster you should first try just running ambari-server stop then ambari-server reset. This script is usually good for when this doesn't work and ambari won't install the cluster after reset.
 
-
-
-
-
-
 ambari-server status
 ambari-server stop
 ambari-agent stop
 
 
-
-
-
-
 yum remove -y ambari*
-yum remove -y knox* ranger* kafka* storm\* hive\*  hbase\* phoenix\* accumulo\* tez\* zookeeper\*  oozie\*  pig\* hadooplzo\* knox\* hadoop\* 
-
-#yum remove extjs-2.2-1 mysql-connector-java-5.0.8-1\*
-
-
+yum remove -y knox* ranger* kafka* storm\* hive\*  hbase\* phoenix\* accumulo\* tez\* zookeeper\*  oozie\*  pig\* hadooplzo\* knox\* hadoop\* \
+smartsense* 
+yum remove extjs-2.2-1 mysql-connector-java-5.0.8-1\*
 yum -y remove `yum list installed | grep -i hadoop | cut -d. -f1 | sed -e :a -e ‘$!N; s/\n/ /; ta’`
 
 
-
-
-# yum -y remove `yum list installed | grep -i hadoop | cut -d. -f1 | sed -e :a -e ‘$!N; s/\n/ /; ta’`
-# yum -y remove ambari*
-# yum -y remove `yum list installed | grep -w ‘HDP’ | cut -d. -f1 | grep -v “^[ ]” | sed -e :a -e ‘$!N; s/\n/ /; ta’`
-# yum -y remove `yum list installed | egrep -w ‘hcatalog|hive|hbase|zookeeper|oozie|pig|sqoop|snappy|hadoop-lzo|knox|hadoop|hue’ | cut -d. -f1 | grep -v “^[ ]” | sed -e :a -e ‘$!N; s/\n/ /; ta’`
-
-rm -rf /hadoop/nn /hadoop/data* 
-
-rm -rf /hadoop/*
+echo "removing directories /hadoop* /usr/hdp* /var/log/hadoop* /hadoop/nn /hadoop/data*"
+rm -rf /hadoop* /usr/hdp* /var/log/hadoop* /hadoop/nn /hadoop/data* /etc/yum.repos.d/ambari* 
 
 
 ps -ef | grep -e ambari -e hdp -e hcatalog -e hive -e hbase -e zookeeper -e oozie -e pig -e sqoop -e snappy -e hadoop-lzo -e knox -e hadoop -e hue
@@ -50,3 +31,7 @@ echo "kill -9 anything left running for hadoop services"
 echo ""
 
 echo "Remove third party database or drop tables if needed (when not using embedded).
+
+yum repolist
+rm -rf /var/cache/yum/
+yum repolist
