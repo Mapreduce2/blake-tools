@@ -31,3 +31,19 @@ echo "TCPKeepAlive yes" >>  /etc/ssh/sshd_config
 #other
 #GSSAPIKeyExchange no
 #GSSAPIEnablek5users no
+
+systemctl restart sshd
+
+echo "dont forget to set user pws if needed or keys"
+echo /etc/sysconfig/selinux | grep -v "#"
+
+echo /boot/grub/grub.conf 
+cat /boot/grub/grub.conf 
+
+echo /etc/ssh/ssh_config
+cat /etc/ssh/ssh_config | grep -v #" | AWK NF
+
+echo /etc/ssh/sshd_config
+cat /etc/ssh/sshd_config | grep -v "#" | AWK NF
+
+
