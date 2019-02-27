@@ -46,6 +46,11 @@ kubectl get po -a --all-namespaces -o json | \
 jq  '.items[] | select(.status.reason!=null) | select(.status.reason | contains("Evicted")) | 
 "kubectl delete po \(.metadata.name) -n \(.metadata.namespace)"' | xargs -n 1 bash -c
 
+#change auth method for SAS 9.4 + viya from pam to/from pw via script
+
+sed -i 's/methods=pam/methods=pw/g' /usr/local/SASHome/SASFoundation/9.4/utilities/bin/sasauth.conf
+
+
 #misc
 
 
