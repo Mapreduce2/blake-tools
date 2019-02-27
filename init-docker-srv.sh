@@ -20,3 +20,15 @@ registry
  firewall-cmd --permanent --add-port=5000/tcp
  firewall-cmd --reload
    
+cat <<EOF >  /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1docker
+EOF
+
+cat <<EOF >  /etc/docker/daemon.json
+{
+"insecure-registries": ["localhost:5000","localhost:5001"]
+}
+EOF
+
+
