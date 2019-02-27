@@ -1,0 +1,35 @@
+FROM centos
+MAINTAINER your BlakeRusso
+
+# Install libraries and clean all
+RUN yum -y install numactl-libs.x86_64 \
+  passwd \
+  libXp \
+  libpng12 \
+  libXmu.x86_64 \
+  glibc lsof nc compat-libstdc++-33.x86_64 libXext.x86_64 libXext-devel.x86_64 libXp.x86_64 libXp-deve                                                                                                                                       l.x86_64 libXtst.x86_64 libXtst-devel.x86_64 glibc.x86_64 numactl.x86_64 perl.x86_64 compat-glibc libX                                                                                                                                       randr.x86_64 git curl mlocate bind-utils logsave \
+&& yum clean all
+
+# Setup Usesr and Groups local
+RUN script /tmp/usersetup.log ; \
+    useradd -m sas ; \
+    useradd sasdemo \
+    usermod -a -G sasdemo sas \
+    #set default pws
+    echo "changeit" | passwd "sasdemo" --stdin; \
+    echo "changeit" | passwd "sas" --stdin
+
+# Set default password by pointing to /etc/passwd
+#RUN echo -e "mypassword" | /usr/bin/passwd --stdin sas
+
+# Make the SASHome directory and add the TAR file
+RUN mkdir -p /usr/local/SASHome
+ADD new-docker-dev-SASHomeTar.tar /
+RUN sed -i 's/methods=pam/methods=pw/g' /usr/local/SASHome/SASFoundation/9.4/utilities/bin/sasauth.con                                                                                                                                       f; \
+   chown -R sas:sas /usr/local/SASHome
+
+EXPOSE 38080
+
+# Add startup script to start SAS Studio
+ADD startup.sh /
+ENTRYPOINT ["/startup.sh"]
