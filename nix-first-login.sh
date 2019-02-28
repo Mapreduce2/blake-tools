@@ -46,4 +46,19 @@ cat /etc/ssh/ssh_config | grep -v #" | AWK NF
 echo /etc/ssh/sshd_config
 cat /etc/ssh/sshd_config | grep -v "#" | AWK NF
 
+echo setup nfs server on /var/ftp /var/nfs and share
 
+ echo "/var/ftp *(rw,sync,all_squash)" >> /etc/export
+  echo "/var/nfs *(rw,sync,all_squash)" >> /etc/exportfs
+  
+chmod 777 -R /var/nfs
+systemctl start nfs-server
+systemctl status nfs-server
+
+#remove pc mount
+#mount hostname:/mnt
+echo "localhost:/var/nfs  /path/mnt nfs defaults 1 1" >> /etc/fstab
+mount -a 
+
+
+ 
