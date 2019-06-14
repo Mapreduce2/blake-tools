@@ -1,0 +1,15 @@
+{
+    "files.defaultLanguage": "log",
+    "window.zoomLevel": -1,
+    "editor.mouseWheelZoom": true,
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+    "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
+    "terminal.explorerKind": "external",
+    "terminal.integrated.fontSize": 16,
+    "files.maxMemoryForLargeFilesMB": 11000,
+    "editor.largeFileOptimizations": false,
+
+    "workbench.statusBar.feedback.visible": false,
+    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.editor.labelFormat": "short"
+}
